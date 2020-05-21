@@ -17,8 +17,9 @@ const userSchema = Schema({
     password: String,
 })
 
-userSchema.methods.generateAuthToken = () => {
+userSchema.methods.generateAuthToken = function() {
     const token = jwt.sign({_id: this._id}, config.secret, {expiresIn:120})
+    return token;
 }
 
 module.exports = mongoose.model("user", userSchema);

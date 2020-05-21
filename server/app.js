@@ -3,7 +3,8 @@ const express = require("express"),
     bodyParser = require("body-parser"),
     mongoose = require("mongoose");
     config = require("./config/config"),
-    api = require("./routes/api");
+    api = require("./routes/api"),
+    userRoute = require("./routes/user");
     
 // Configuring Mongoose
 mongoose.connect(config.mongoURI, { useNewUrlParser: true,  useUnifiedTopology: true }, err => {
@@ -18,6 +19,7 @@ mongoose.Promise = global.Promise;
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use('/api', api);
+app.use("/user", userRoute)
 
 app.listen(config.port, (err) => {
     if(err)
