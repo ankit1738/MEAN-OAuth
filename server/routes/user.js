@@ -4,10 +4,10 @@ const express = require("express"),
     User = require("../models/user");
 
 router.get("/profile", auth, (req, res) => {
-    User.findOne({_id:req.userId}, (err, user) => {
+    User.findOne({_id:req.userId},{email:1, fName:1, lName:1}, (err, user) => {
         if(err)
-            return res.send("User not found");
-        return res.send(user);
+            return res.status(401).send("User not found");
+        return res.status(200).send(user);
     });
 });
 
